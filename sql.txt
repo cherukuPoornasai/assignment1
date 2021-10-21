@@ -1,0 +1,380 @@
+
+                            SQL 1
+
+
+
+1.	Write a query to list all the employees who are working as clerk
+
+
+
+SELECT * FROM emp
+where job='CLERK';
+
+
+
+2.	Write a query to list the employees who are working as clerks or managers
+
+ANS SELECT * FROM emp
+where job='CLERK' or job='MANAGER';
+
+3.	Write a query to get the current date
+
+
+ANS   SELECT GETDATE();
+
+
+4.	Write a query to list the employees whose salaries are within the range of 500 and 1000
+
+
+ANS  SELECT * FROM emp
+    WHERE SAL BETWEEN 500 AND 1000;
+
+
+5.	Write a query to list the employees who have joined in the month of December
+
+ANS SELECT *  FROM EMP WHERE HIREDATE  BETWEEN ('1-DEC-81') AND ('31-DEC-81')
+
+
+6.	Write a query to list the employees whose salaries are not within  the range of 1000 and 2500
+
+ANS SELECT * FROM EMP WHERE SAL NOT BETWEEN 1000 AND 2500
+
+
+7.	Write a query who are getting 800, 950, 3000,5000
+
+ANS   SELECT * FROM EMP WHERE SAL IN(800,950,3000,5000)
+
+8.	To list all the employees whose names are having ‘L’ as second character 
+
+ANS   SELECT * FROM EMP WHERE ENAME LIKE'_L%'
+
+
+9.	To list all the employees whose names are having ‘D’ as last character 
+
+
+ANS  SELECT * FROM EMP WHERE ENAME LIKE'%d'
+
+10.	To list all the employees whose names are having just 5 characters as length? 
+
+
+ANS  SELECT * FROM EMP WHERE ENAME LIKE'_____'
+
+11.	To list all the employees whose names are starting with ‘T’ and ending with ‘R’
+
+ANS  SELECT * FROM EMP WHERE ENAME LIKE'T%R'
+ 
+12.	Display those employees who's name contains "A"?
+
+ANS SELECT * FROM EMP WHERE ENAME LIKE'%A%'
+
+13.	Display those employee who joined the company before 19th of the month?
+
+ANS SELECT *  FROM EMP WHERE HIREDATE >('19-DEC-81') 
+14.	What is the employee number of 'James' 
+
+ANS  SELECT EMPNO  FROM EMP WHERE ENAME ='JAMES'
+
+15.	What is the salary of 'king'?
+
+ANS  SELECT SAL  FROM EMP WHERE ENAME ='KING'
+
+
+16.	Who is the President for organization?
+
+ANS  SELECT ENAME  FROM EMP WHERE JOB ='PRESIDENT'
+
+
+17.	 List all details of all the managers?
+
+ANS SELECT *  FROM EMP WHERE JOB ='MANAGER'
+
+
+18.	Give employee details for employees drawing commission?
+
+ANS  SELECT *  FROM EMP WHERE COMM IS NOT NULL
+
+
+19.	List employees who joined before april-1981?
+
+
+ANS  SELECT *  FROM EMP WHERE HIREDATE < ('1-APR-81')
+
+
+20.	What is the salary of following: King, Blake, Ford, Smith
+
+ANS  SELECT SAL  FROM EMP WHERE ENAME IN('KING', 'BLAKE', 'FORD', 'SMITH')
+
+
+22.	Who is drawing salary less than 3500
+
+ANS  SELECT *  FROM EMP WHERE SAL<3500
+
+23.	List the details of all the clerks
+
+ANS  SELECT * FROM EMP WHERE JOB='CLERK'
+
+
+24.	what is the annual salary for each the employees
+
+ANS  SELECT * , SAL*12 AS ANNUALSAL FROM EMP 
+
+
+25.	if there is a hike in monthly salary by 20% for ford, what will be his annual Salary
+
+ANS  SELECT * , (SAL+(SAL/5))*12 AS ANNUALSAL FROM EMP WHERE ename='FORD';
+
+
+26.	What is the total salary for each department
+
+ANS  SELECT * ,SUM(SAL) AS TOTALSAL FROM EMP
+     GROUP BY (DEPTNO)
+
+27.	Who is drawing the lowest salary in dept 10
+
+ANS SELECT MIN(SAL) FROM EMP WHERE DEPTNO=10
+
+
+28.	What is the average salary for Managers
+
+ANS  SELECT AVG(SAL) FROM EMP WHERE JOB='MANAGER'
+
+
+29.	What is the total salary for salesman
+
+ANS  SELECT JOB, SUM(SAL) AS TOTAL_SALARY FROM EMP
+      WHERE JOB='SALESMAN'  GROUP BY JOB 
+
+
+30.	Which department is having the lowest average salary?
+
+ANS    SELECT AVG(SAL) AS AVERAGE, DEPTNO  AS TOTAL_SALARY FROM EMP
+       GROUP BY DEPTNO
+       ORDER BY AVERAGE
+       LIMIT 1
+
+1. SELECT D.DNAME, D.DEPTNO
+   FROM EMP E
+   RIGHT JOIN  DEPT D
+   ON E.DEPTNO  =D.DEPTNO;
+
+2.SELECT E.ENAME , E.JOB
+  FROM  EMP E , DEPT D
+  WHERE E.DEPTNO=D.DEPTNO and MGR IS NULL; 
+
+3.SELECT E.ENAME , E.JOB, E.COMM
+  FROM  EMP E , DEPT D
+  WHERE E.DEPTNO=D.DEPTNO and COMM>1000 and loc='NEWYORK';
+
+4.SELECT  COUNT(E.ENAME)AS EMPLOYEE_COUNT
+  FROM EMP E, DEPT D
+  WHERE E.DEPTNO=D.DEPTNO and loc='CHICAGO';
+
+5.SELECT E.ENAME
+  FROM EMP E, DEPT D
+  WHERE E.DEPTNO=D.DEPTNO and loc='CHICAGO';
+
+6.SELECT E.ENAME, D.LOC
+  FROM EMP E, DEPT D
+  WHERE E.DEPTNO=D.DEPTNO
+  ORDER BY LOC;
+
+7. SELECT  COUNT(E.ENAME)AS EMPLOYEE_COUNT, COUNT( DISTINCT D.DEPTNO) AS DEPT_COUNT
+  FROM EMP E
+  RIGHT JOIN  DEPT D
+  ON E.DEPTNO=D.DEPTNO;
+
+
+
+9. SELECT  COUNT(E.ENAME) AS MANAGER_COUNT
+   FROM EMP E
+   WHERE JOB='MANAGER';
+
+10. SELECT ENAME, JOB 
+   FROM EMP
+    WHERE MGR IS NULL;
+
+11. SELECT ENAME , DEPTNO
+   FROM EMP 
+   WHERE ENAME='SMITH';
+
+12. ELECT E.ENAME 
+    FROM EMP E, DEPT D
+    WHERE E.DEPTNO=D.DEPTNO and JOB='SALESMAN'and LOC <>'BOSTON';
+
+13. SELECT  E.EMPNO	, E.ENAME, E.JOB,E.MGR,	E.HIREDATE,E.SAL,E.COMM,E.DEPTNO, D.LOC
+    FROM EMP E, DEPT D
+    WHERE E.DEPTNO=D.DEPTNO;
+
+14. SELECT ENAME 
+    FROM EMP
+    WHERE JOB='SALESMAN' AND SAL<
+        (SELECT SAL 
+        FROM EMP
+        WHERE ENAME='MILLER');
+
+15.  SELECT  E.EMPNO, E.ENAME, E.JOB,E.MGR,E.HIREDATE,E.SAL,	E.COMM,E.DEPTNO, D.LOC
+    FROM EMP E, DEPT D
+    WHERE E.DEPTNO=D.DEPTNO and D.LOC='CHICAGO';
+
+16.  SELECT ENAME
+     FROM EMP
+     WHERE SAL>
+           (SELECT MIN(SAL) AS MIN_SAL
+           FROM EMP 
+           WHERE JOB='MANAGER');
+
+17.
+
+
+
+18. SELECT ENAME
+   FROM EMP
+   WHERE JOB='MANAGER';
+
+19. SELECT DNAME,
+    CASE
+        WHEN DNAME='SALES' THEN 'SALES_DEPARTMENT'
+        ELSE 'NON_SALES'
+    END AS DEPARTMENT_STATUS
+    FROM EMP 
+    join DEPT on EMP.DEPTNO=DEPT.DEPTNO;
+
+20.SELECT SAL,
+   CASE
+       WHEN SAL>1000 THEN SAL
+   ELSE 1000
+   END AS NEW_SALARY
+   FROM EMP ;
+
+21. SELECT SAL,
+    CASE
+        WHEN SAL<1000 THEN 'LESS'
+	WHEN SAL BETWEEN 1000  and 2500 THEN 'MEDIUM'
+    ELSE 'HIGH'
+    END AS SALARY_STATUS
+    FROM EMP ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Select below details from emp & jobhist tables using set operatorsDisplay employee ID, Name, joined date, date
+ when emp left the company & reason arrange in the descending order of joined date.
+
+select EMPNO,ENAME,HIREDATE, 0 as'end date' FROM EMP
+UNION
+SELECT empno,'NA',startdate,enddate from jobhist
+order by HIREDATE 
+
+
+
+Display employees are drawing commission & not in organization arrange in the descending order of resignation date.
+
+
+select EMPNO,ENAME, 0 as'end date',COMM  FROM EMP
+WHERE COMM IS NOT NULL
+UNION
+SELECT empno,'NA',enddate, COMM  from jobhist
+WHERE COMM IS NOT NULL
+
+
+List the current & past department of all the employees.
+
+
+
+
+select EMPNO,ENAME,DEPTNO FROM EMP
+UNION
+SELECT empno,'NA',DEPTNO from jobhist
+order by HIREDATE 
+
+
+
+from emp
+WHERE DEPTNO =20
+GROUP BY job
+having AVG(SAL)>1000
+
+
+
+select deptno,job,
+sal*12 AS 'TOTALSAL',
+min(sal) AS 'minsal',
+max(sal) AS 'maxsal'
+from emp
+WHERE DEPTNO =20
+
+
+select job,count(job) AS TN from emp
+group by job 
+ORDER BY [TN]
+
+select job,
+SUM(sal) as total
+min(sal) AS 'minsal',
+max(sal) AS 'maxsal'
+from emp
+GROUP BY job
+
+select deptno,job,
+sal*12 AS 'TOTALSAL'
+min(sal) AS 'minsal',
+max(sal) AS 'maxsal'
+
+
+SELECT A.ProductName,C.CategoryName
+FROM Products A
+JOIN Suppliers B ON A.SupplierID=B.SupplierID
+JOIN Categories C ON A.CategoryID=C.CategoryID
+WHERE Suppliername='Tokyo Traders'
+
+
+
+
+
+
+SELECT A.ProductName,C.CategoryName
+FROM Products A
+JOIN Suppliers B ON A.SupplierID=B.SupplierID
+JOIN Categories C ON A.CategoryID=C.CategoryID
+WHERE Suppliername='Tokyo Traders'
+
+
+
+
+SELECT A.CustomerID ,COUNT(B.OrderID) FROM  Customers A
+join Orders B on B.CustomerID =A.CustomerID
+GROUP BY CustomerID  
+
+
+
+SELECT A.CustomerID ,COUNT(B.OrderID)  AS TORDERS  FROM  Customers A
+join Orders B on B.CustomerID =A.CustomerID
+GROUP BY CustomerID  
+ORDER BY TORDERS DESC
+LIMIT 1;
+
+
+SELECT A.CustomerID ,A.CustomerName,COUNT(B.OrderID)  AS TORDERS  FROM  Customers A
+join Orders B on B.CustomerID =A.CustomerID
+GROUP BY CustomerID  
+ORDER BY TORDERS DESC
+LIMIT 1;
