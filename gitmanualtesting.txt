@@ -1,0 +1,40 @@
+1)Requirements for ABTS login screen:
+ test caase1 :mahi.abs- should accept
+ test case2: jay-should not accept
+test case3:  jhansipavitra@123-should not accept
+test case4:/.administrator- should notaccept
+
+
+)Requirements for LeTS Attendance screen:
+testcase1: date-26/07/2021(second half) to 27/07/2021(first half) issue-health or any sanctioning athuority-jaysree reason-fever-should be accepted
+testcase2: date-02/27/2021(second half) to 02/28/2021(first half) issue-health or any sanctioning athuority-jaysree reason-headache -should not  be accepted
+testcase3: date-26/07/2021(second half) to 27/07/2021(first half) issue-health or any sanctioning athuority-jaysree reason - -should  not be accepted
+
+
+
+
+
+
+
+
+
+
+
+tc no.         precondition                     scenario     description      action                       test data            expected result
+
+tc_001     Attendence page should be open      view report                 enter the type of issue         valid type            enterd data is correct
+                                                                           enter the from date             valid from date       User will be able to view the report
+                                                                           enter to date                   valid to date
+                                                                           click on submit button
+tc_002     Attendence page should be open      view report                 enter the type of issue         no type selected      error messege to select the type
+                                                                           enter the from date             valid from date
+                                                                           enter to date                   valid  to date
+                                                                           click on submit button 
+tc_003     Attendence page should be open      view report                 enter the type of issue         valid type selected   incorrect data     
+                                                                           enter the from date             invalid from date     error message    
+                                                                           enter to date                   valid  to date
+                                                                           click on submit button
+tc_004     Attendence page should be open      view report                 enter the type of issue         valid type selected   incorrect data     
+                                                                           enter the from date             valid from date       error message    
+                                                                           enter to date                   invalid  to date
+                                                                           click on submit button
